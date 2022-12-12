@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput
-} from 'react-native';
+} from "react-native";
 import { useState } from "react";
 
 var height = Dimensions.get("window").height;
@@ -15,8 +15,15 @@ var width = Dimensions.get("window").width;
 export default function App() {
   const [operacao, setOperacao] = useState("")
   const [resultado, setResultado] = useState("")
+  var resul
   const AddOper = (valor) => {
-    setOperacao(operacao + valor);
+    if (operacao.length >= 80) {
+      setResultado("Excedido valor máximo")
+    }
+    
+    else {
+      setOperacao(operacao + valor);
+    }
   }
 
   const LimparOper = () => {
@@ -30,23 +37,44 @@ export default function App() {
   }
 
   const Result = () => {
-    var resul = eval(operacao)
-    setResultado(resul)
+    if (operacao.length >= 80) {
+      setResultado("Excedido valor máximo")
+    }
+
+    else {
+      try {
+        resul = operacao.toString().replace(",", ".").replace("×", "*").replace("÷", "/")
+        resul = eval(resul)
+        resul = resul.toString().replace(".", ",").replace("*", "×").replace("/", "÷")
+        setResultado(resul)
+      }
+      
+      catch {
+        setResultado("Sintaxe incorreta!")
+      }
+    }
   }
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.calculadora}>
-        <View
-          style={styles.visor}>
+        <View style={styles.visor}>
           <TextInput
             style={styles.texto}
             value={operacao}
             onChangeText={(text) => setOperacao(text)}
-            keyboardType={"numeric"}
+            multiline={true}
+            numberOfLines={4}
+            keyboardType={"number-pad"}
+            maxLength={80}
           />
-          <Text style={[styles.texto, {marginTop: 20, color: "white"}]}>{resultado}</Text>
+          <Text
+            adjustsFontSizeToFit={true}
+            numberOfLines={1}
+            style={styles.textoresultado}
+            selectable={true}
+          >{resultado}</Text>
         </View>
 
         <View style={styles.botoes_grupo}>
@@ -70,7 +98,7 @@ export default function App() {
           <TouchableOpacity onPress={() => AddOper("1")} style={styles.botoes}><Text style={styles.botoes_texto}>1</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => AddOper(" + ")} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp, styles.botoes_texto_simb]}>+</Text></TouchableOpacity>
 
-          <TouchableOpacity onPress={() => AddOper("0")} style={[styles.botoes, {    width: (height * .7) * .295,}]}><Text style={[styles.botoes_texto]}>0</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => AddOper("0")} style={[styles.botoes, {width: (height * .7) * .335, borderRadius: 30}]}><Text style={[styles.botoes_texto]}>0</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => AddOper(",")} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp, styles.botoes_texto_simb]}>,</Text></TouchableOpacity>
           <TouchableOpacity onPress={Result} style={[styles.botoes, styles.botoes_result]}><Text style={[styles.botoes_texto, styles.botoes_texto_result]}>=</Text></TouchableOpacity>
         </View>
@@ -82,9 +110,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222222',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#222222",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   calculadora: {
@@ -95,11 +123,14 @@ const styles = StyleSheet.create({
   },
 
   visor: {
-    height: height * .4,
-    width: width * .86,
+    height: height * .335,
+    width: width * .95,
     borderBottomColor: "#323232",
     borderBottomWidth: 2,
-    marginHorizontal: "7%"
+    justifyContent: "flex-end",
+    marginHorizontal: "2.5%",
+    paddingVertical: "5%",
+    paddingHorizontal: "2.5%"
   },
 
   texto: {
@@ -107,23 +138,32 @@ const styles = StyleSheet.create({
     color: "#ffa500",
     fontWeight: "500",
     textAlign: "right",
+    textAlignVertical: "bottom"
+  },
+
+  textoresultado: {
+    fontSize: 45,
+    color: "white",
+    fontWeight: "500",
+    textAlign: "right",
   },
 
   botoes_grupo: {
-    height: height * .6,
+    width: width,
+    height: height * .665,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: "5%",
-    paddingHorizontal: "10%",
+    paddingVertical: "5%",
+    paddingHorizontal: "5%",
     flexWrap: "wrap",
   },
 
   botoes: {
-    width: (height * .7) * .13,
+    width: (height * .7) * .15,
     backgroundColor: "#383838",
     borderRadius: 100,
-    height: (height * .7) * .13,
-    marginBottom: 15,
+    height: (height * .7) * .15,
+    marginBottom: 10,
     justifyContent: "center"
   },
 
