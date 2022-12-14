@@ -16,19 +16,35 @@ export default function App() {
   const [operacao, setOperacao] = useState("")
   const [resultado, setResultado] = useState("")
   var resul
+  const [count, setCount] = useState(0)
   const AddOper = (valor) => {
     if (operacao.length >= 80) {
       setResultado("Excedido valor máximo")
     }
     
     else {
-      setOperacao(operacao + valor);
+      if (valor == "()") {
+        if (count % 2 == 0) {
+          setOperacao(operacao + "(")
+        }
+
+        if (count % 2 == 1) {
+          setOperacao(operacao + ")")
+        }
+
+        setCount(count + 1)
+      }
+
+      else {
+        setOperacao(operacao + valor);
+      }
     }
   }
 
   const LimparOper = () => {
     setOperacao("");
     setResultado("");
+    setCount(0)
   }
 
   const ApagarOper = () => {
@@ -39,13 +55,14 @@ export default function App() {
   const Result = () => {
     if (operacao.length >= 80) {
       setResultado("Excedido valor máximo")
+      setCount(0)
     }
 
     else {
       try {
-        resul = operacao.toString().replace(",", ".").replace("×", "*").replace("÷", "/")
+        resul = operacao.toString().replace(/,/g, ".").replace(/×/g, "*").replace(/÷/g, "/")
         resul = eval(resul)
-        resul = resul.toString().replace(".", ",").replace("*", "×").replace("/", "÷")
+        resul = resul.toString().replace(".", ",")
         setResultado(resul)
       }
       
@@ -80,7 +97,7 @@ export default function App() {
         <View style={styles.botoes_grupo}>
           <TouchableOpacity onPress={LimparOper} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp]}>C</Text></TouchableOpacity>
           <TouchableOpacity onPress={ApagarOper} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp]}>⌫</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp]}>( )</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => AddOper("()")} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp]}>( )</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => AddOper(" ÷ ")} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp, styles.botoes_texto_simb]}>÷</Text></TouchableOpacity>
 
           <TouchableOpacity onPress={() => AddOper("9")} style={styles.botoes}><Text style={styles.botoes_texto}>9</Text></TouchableOpacity>
