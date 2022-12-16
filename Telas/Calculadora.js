@@ -17,11 +17,7 @@ const Calculadora = ({ navigation }) => {
     var resul, paraber, parfech
 
     const AddOper = (valor) => {
-        if (operacao.length >= 72) {
-            setResultado("Excedido valor máximo")
-        }
-
-        else if (valor == "()") {
+        if (valor == "()") {
             paraber = operacao.split("(").length - 1
             parfech = operacao.split(")").length - 1
   
@@ -50,8 +46,13 @@ const Calculadora = ({ navigation }) => {
     }
   
     const Result = () => {
-        if (operacao.length >= 72) {
-            setResultado("Excedido valor máximo")
+        var mult = operacao.split("×").length - 1
+        var divi = operacao.split("÷").length - 1
+        var soma = operacao.split("+").length - 1
+        var subt = operacao.split("-").length - 1
+
+        if ( mult == 0 && divi == 0 && soma == 0 && subt == 0) {
+          setResultado("Erro de sintaxe")
         }
   
         else {
@@ -70,13 +71,13 @@ const Calculadora = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-        <View style={styles.calculadora}>
-        <View style={styles.botoes_conv_gp}>
-            <TouchableOpacity onPress={() => navigation.navigate("Medidas")} style={styles.botoes_conv}><Text style={styles.botoes_conv_texto}>📏</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Peso")} style={styles.botoes_conv}><Text style={styles.botoes_conv_texto}>⚖️</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Temperatura")} style={styles.botoes_conv}><Text style={styles.botoes_conv_texto}>🌡</Text></TouchableOpacity>
+        <View style={styles.conv_botoes_gp}>
+            <TouchableOpacity onPress={() => navigation.navigate("Medidas")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>📏</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Massa")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>⚖️</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Temperatura")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>🌡</Text></TouchableOpacity>
         </View>
 
+        <View style={styles.calculadora}>
         <View style={styles.visor}>
             <TextInput
             style={styles.texto}
@@ -85,10 +86,8 @@ const Calculadora = ({ navigation }) => {
             multiline={true}
             numberOfLines={4}
             keyboardType={"number-pad"}
-            maxLength={72}
             />
             <Text
-            adjustsFontSizeToFit={true}
             numberOfLines={1}
             style={styles.textoresultado}
             selectable={true}
@@ -133,14 +132,14 @@ const styles = StyleSheet.create({
       justifyContent: "center",
     },
   
-    botoes_conv_gp: {
+    conv_botoes_gp: {
         zIndex: 1,
       position: "absolute",
       left: 10,
-      top: 0
+      top: 50
     },
   
-    botoes_conv: {
+    conv_botoes: {
       backgroundColor: "#383838",
       width: width * .1,
       height: width * .1,
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
       borderRadius: 50,
     },
   
-    botoes_conv_texto: {
+    conv_botoes_texto: {
       color: "#ffa500",
       textAlign: "center",
       fontWeight: "500",
@@ -158,17 +157,17 @@ const styles = StyleSheet.create({
   
     calculadora: {
       flex: 1,
-      marginTop: height * .1,
+      marginTop: height * .032,
       justifyContent: "flex-start",
       flexDirection: "column"
     },
   
     visor: {
-      height: height * .335,
+      height: height * .4038,
       width: width * .95,
       borderBottomColor: "#383838",
       borderBottomWidth: 2,
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
       marginHorizontal: "2.5%",
       paddingVertical: "5%",
       paddingHorizontal: "2.5%",
@@ -179,14 +178,15 @@ const styles = StyleSheet.create({
       color: "#ffa500",
       fontWeight: "500",
       textAlign: "right",
-      textAlignVertical: "bottom"
+      marginLeft: "12%"
     },
   
     textoresultado: {
-      fontSize: 45,
+      fontSize: 40,
       color: "white",
       fontWeight: "500",
       textAlign: "right",
+      marginLeft: "12%"
     },
   
     botoes_grupo: {

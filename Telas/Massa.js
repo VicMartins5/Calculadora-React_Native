@@ -11,47 +11,80 @@ import { useState } from "react";
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
 
-const Temperatura = ({ navigation }) => {
-  const [celsius, setCelsius] = useState("")
-  const [fahrenheit, setFahrenheit] = useState("")
-  const [kelvin, setKelvin] = useState("")
+const Peso = ({ navigation }) => {
+  const [miligramas, setMiligramas] = useState("")
+  const [gramas, setGramas] = useState("")
+  const [quilogramas, setQuilogramas] = useState("")
+  const [toneladas, setToneladas] = useState("")
+  const [oncas, setOncas] = useState("")
+  const [arroba, setArroba] = useState("")
   return (
     <View style={styles.container}>
         <View style={styles.conv_botoes_gp}>
             <TouchableOpacity onPress={() => navigation.navigate("Medidas")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>📏</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Massa")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>⚖️</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Calculadora")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>➕</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Temperatura")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>🌡</Text></TouchableOpacity>
         </View>
 
         <View style={styles.calculadora}>
           <View style={[styles.visor, styles.visor_medidas]}>
-            <Text style={styles.conv_legenda}>C °</Text>
+            <Text style={styles.conv_legenda}>mg</Text>
             <TextInput
               style={styles.conv_input}
-              value={celsius}
-              onChangeText={(text) => setCelsius(text)}
+              value={miligramas}
+              onChangeText={(text) => setMiligramas(text)}
               keyboardType={"numeric"}
-              placeholder="Celsius "
+              placeholder="Miligrama "
               placeholderTextColor={"#ffa500"}
             />
 
-            <Text style={styles.conv_legenda}>F °</Text>
+            <Text style={styles.conv_legenda}>g</Text>
             <TextInput
               style={styles.conv_input}
-              value={fahrenheit}
-              onChangeText={(text) => setFahrenheit(text)}
+              value={gramas}
+              onChangeText={(text) => setGramas(text)}
               keyboardType={"numeric"}
-              placeholder="Fahrenheit"
+              placeholder="Grama"
               placeholderTextColor={"#ffa500"}
             />
 
-            <Text style={styles.conv_legenda}>K °</Text>
+            <Text style={styles.conv_legenda}>kg</Text>
             <TextInput
               style={styles.conv_input}
-              value={kelvin}
-              onChangeText={(text) => setKelvin(text)}
+              value={quilogramas}
+              onChangeText={(text) => setQuilogramas(text)}
               keyboardType={"numeric"}
-              placeholder="Kelvin"
+              placeholder="Quilograma"
+              placeholderTextColor={"#ffa500"}
+            />
+
+            <Text style={styles.conv_legenda}>t</Text>
+            <TextInput
+              style={styles.conv_input}
+              value={toneladas}
+              onChangeText={(text) => setToneladas(text)}
+              keyboardType={"numeric"}
+              placeholder="Tonelada "
+              placeholderTextColor={"#ffa500"}
+            />
+
+            <Text style={styles.conv_legenda}>oz</Text>
+            <TextInput
+              style={styles.conv_input}
+              value={oncas}
+              onChangeText={(text) => setOncas(text)}
+              keyboardType={"numeric"}
+              placeholder="Onça"
+              placeholderTextColor={"#ffa500"}
+            />
+
+            <Text style={styles.conv_legenda}>@</Text>
+            <TextInput
+              style={styles.conv_input}
+              value={arroba}
+              onChangeText={(text) => setArroba(text)}
+              keyboardType={"numeric"}
+              placeholder="Arroba"
               placeholderTextColor={"#ffa500"}
             />
           </View>
@@ -204,4 +237,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default Temperatura;
+export default Peso;
