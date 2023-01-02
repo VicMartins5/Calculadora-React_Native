@@ -20,6 +20,19 @@ const Medidas = ({ navigation }) => {
   const [pes, setPes] = useState("")
   const [jardas, setJardas] = useState("")
   const [milhas, setMilhas] = useState("")
+
+  const ConvMM = () => {
+    var mm = milimetros.toString().replace(/,/g, ".")
+    setCentimetros(mm / 10);
+    alert(centimetros)
+    setMetros(mm / 1000);
+    setQuilometros(mm / 1000000);
+    setPolegadas(mm / 25.4);
+    setPes(mm / 304.8);
+    setJardas(mm / 914.4);
+    setMilhas(mm / 1609344);
+  }
+
   return (
     <View style={styles.container}>
         <View style={styles.conv_botoes_gp}>
@@ -30,11 +43,11 @@ const Medidas = ({ navigation }) => {
 
         <View style={styles.calculadora}>
           <View style={[styles.visor, styles.visor_medidas]}>
-            <Text style={styles.conv_legenda}>mm</Text>
+            <Text onPress={ConvMM} style={styles.conv_legenda}>mm</Text>
             <TextInput
               style={styles.conv_input}
               value={milimetros}
-              onChangeText={(text) => setMilimetros(text)}
+              onChangeText={setMilimetros}
               keyboardType={"numeric"}
               placeholder="Milímetros "
               placeholderTextColor={"#ffa500"}
@@ -44,7 +57,7 @@ const Medidas = ({ navigation }) => {
             <TextInput
               style={styles.conv_input}
               value={centimetros}
-              onChangeText={(text) => setCentimetros(text)}
+              onChangeText={setCentimetros}
               keyboardType={"numeric"}
               placeholder="Centímetros"
               placeholderTextColor={"#ffa500"}

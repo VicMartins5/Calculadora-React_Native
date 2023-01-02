@@ -3,9 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Calculadora from "./Telas/Calculadora";
-import Medidas from "./Telas/Medidas";
-import Massa from "./Telas/Massa";
-import Temperatura from "./Telas/Temperatura";
+import Conversor from "./Telas/Conversor";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,11 +11,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="light" />
-      <Stack.Navigator screenOptions={{headerShown: false}} headerMode="none" initialRouteName="Calculadora">
+      <Stack.Navigator screenOptions={{headerShown: false}} headerMode="none" initialRouteName="Conversor">
         <Stack.Screen name="Calculadora" component={Calculadora} />
-        <Stack.Screen name="Medidas" component={Medidas} />
-        <Stack.Screen name="Massa" component={Massa} />
-        <Stack.Screen name="Temperatura" component={Temperatura} />
+        <Stack.Screen name="Conversor" component={Conversor} />
       </Stack.Navigator>
     </NavigationContainer>
   );

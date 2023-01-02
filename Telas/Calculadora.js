@@ -72,9 +72,7 @@ const Calculadora = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <View style={styles.conv_botoes_gp}>
-            <TouchableOpacity onPress={() => navigation.navigate("Medidas")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>📏</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Massa")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>⚖️</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Temperatura")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>🌡</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Conversor")} style={styles.conv_botoes}><Text style={styles.conv_botoes_texto}>⥦</Text></TouchableOpacity>
         </View>
 
         <View style={styles.calculadora}>
@@ -89,6 +87,7 @@ const Calculadora = ({ navigation }) => {
             />
             <Text
             numberOfLines={1}
+            adjustsFontSizeToFit={true}
             style={styles.textoresultado}
             selectable={true}
             >{resultado}</Text>
@@ -115,9 +114,9 @@ const Calculadora = ({ navigation }) => {
             <TouchableOpacity onPress={() => AddOper("1")} style={styles.botoes}><Text style={styles.botoes_texto}>1</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => AddOper(" + ")} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp, styles.botoes_texto_simb]}>+</Text></TouchableOpacity>
 
-            <TouchableOpacity onPress={() => AddOper("0")} style={[styles.botoes, {width: (height * .7) * .335, borderRadius: 30}]}><Text style={[styles.botoes_texto]}>0</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => AddOper(",")} style={styles.botoes}><Text style={[styles.botoes_texto, styles.botoes_texto_esp, styles.botoes_texto_simb]}>,</Text></TouchableOpacity>
-            <TouchableOpacity onPress={Result} style={[styles.botoes, styles.botoes_result]}><Text style={[styles.botoes_texto, styles.botoes_texto_result]}>=</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => AddOper("0")} style={[styles.botoes, {width: (height * .7) * .335, borderRadius: 30, marginBottom: 0}]}><Text style={[styles.botoes_texto]}>0</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => AddOper(",")} style={[styles.botoes, {marginBottom: 0}]}><Text style={[styles.botoes_texto, styles.botoes_texto_esp, styles.botoes_texto_simb]}>,</Text></TouchableOpacity>
+            <TouchableOpacity onPress={Result} style={[styles.botoes, styles.botoes_result, {marginBottom: 0}]}><Text style={[styles.botoes_texto, styles.botoes_texto_result]}>=</Text></TouchableOpacity>
         </View>
         </View>
     </View>
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
     },
   
     conv_botoes_gp: {
-        zIndex: 1,
+      zIndex: 1,
       position: "absolute",
       left: 10,
       top: 50
@@ -152,18 +151,19 @@ const styles = StyleSheet.create({
       color: "#ffa500",
       textAlign: "center",
       fontWeight: "500",
-      fontSize: 20
+      fontSize: 30,
+      lineHeight: width * .1
     },
   
     calculadora: {
       flex: 1,
-      marginTop: height * .032,
+      marginTop: height * .05,
       justifyContent: "flex-start",
       flexDirection: "column"
     },
   
     visor: {
-      height: height * .4038,
+      height: height * .316,
       width: width * .95,
       borderBottomColor: "#383838",
       borderBottomWidth: 2,
@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
   
     botoes_grupo: {
       width: width,
-      height: height * .665,
       flexDirection: "row",
       justifyContent: "space-between",
       paddingVertical: "5%",
