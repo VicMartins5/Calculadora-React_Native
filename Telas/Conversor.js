@@ -18,55 +18,292 @@ const Conversor = ({ navigation }) => {
   const [resultadomedidas, setResultadomedidas] = useState("Medida 2")
 
   const [medaberta1, setMedaberta1] = useState(false);
-  const [medselecionada1, setMedselecionada1] = useState();
+  const [medselecionada1, setMedselecionada1] = useState("");
   const [med1, setMed1] = useState([
     {label: "Milímetros", value: "mm"},
     {label: "Centímetros", value: "cm"},
     {label: "Metros", value: "m"},
     {label: "Quilômetros", value: "km"},
     {label: "Polegadas", value: "pol"},
-    {label: "Pés", value: "pés"},
-    {label: "Jardas", value: "yd"},
-    {label: "Milhas", value: "mi"},
   ]);
 
   const [medaberta2, setMedaberta2] = useState(false);
-  const [medselecionada2, setMedselecionada2] = useState();
+  const [medselecionada2, setMedselecionada2] = useState("");
   const [med2, setMed2] = useState([
     {label: "Milímetros", value: "mm"},
     {label: "Centímetros", value: "cm"},
     {label: "Metros", value: "m"},
     {label: "Quilômetros", value: "km"},
     {label: "Polegadas", value: "pol"},
-    {label: "Pés", value: "pés"},
-    {label: "Jardas", value: "yd"},
-    {label: "Milhas", value: "mi"},
   ]);
+
+  const ConvMedidas = () => {
+    if (medselecionada1 == "" || medselecionada2 == "") {
+      alert("Escolha as medidas a serem convertidas!")
+    }
+
+    else {
+      if (medidas == "") {
+        alert("Digite a medida a ser convertida!")
+      }
+
+      else {
+        if (medselecionada1 == medselecionada2) {
+          setResultadomedidas(medidas + " " + medselecionada2)
+        }
+  
+        else {
+          var calc = (medidas).replace(/,/g, ".")
+          calc = parseFloat(calc)
+          if (medselecionada1 == "mm") {
+            if (medselecionada2 == "cm") {
+              calc = (calc / 10)
+            }
+
+            else if (medselecionada2 == "m") {
+              calc = (calc / 1000)
+            }
+            
+            else if (medselecionada2 == "km") {
+              calc = (calc / 100000)
+            }
+            
+            else if (medselecionada2 == "pol") {
+              calc = (calc / 25.4)
+            }
+          }
+
+          if (medselecionada1 == "cm") {
+            if (medselecionada2 == "mm") {
+              calc = (calc * 10)
+            }
+
+            else if (medselecionada2 == "m") {
+              calc = (calc / 100)
+            }
+            
+            else if (medselecionada2 == "km") {
+              calc = (calc / 100000)
+            }
+            
+            else if (medselecionada2 == "pol") {
+              calc = (calc / 2.54)
+            }
+          }
+
+          if (medselecionada1 == "m") {
+            if (medselecionada2 == "mm") {
+              calc = (calc * 1000)
+            }
+
+            else if (medselecionada2 == "cm") {
+              calc = (calc * 100)
+            }
+            
+            else if (medselecionada2 == "km") {
+              calc = (calc / 1000)
+            }
+            
+            else if (medselecionada2 == "pol") {
+              calc = (calc * 39.37)
+            }
+          }
+
+          if (medselecionada1 == "km") {
+            if (medselecionada2 == "mm") {
+              calc = (calc * 1000000)
+            }
+
+            else if (medselecionada2 == "cm") {
+              calc = (calc * 100000)
+            }
+            
+            else if (medselecionada2 == "m") {
+              calc = (calc * 1000)
+            }
+            
+            else if (medselecionada2 == "pol") {
+              calc = (calc * 39370)
+            }
+          }
+
+          if (medselecionada1 == "pol") {
+            if (medselecionada2 == "mm") {
+              calc = (calc * 25.4)
+            }
+
+            else if (medselecionada2 == "cm") {
+              calc = (calc * 2.54)
+            }
+            
+            else if (medselecionada2 == "m") {
+              calc = (calc / 39.37)
+            }
+            
+            else if (medselecionada2 == "km") {
+              calc = (calc / 39370)
+            }
+          }
+
+          if (calc.toString().length > 7) {
+            calc = (calc.toFixed(7)).toString().replace(".", ",")
+          }
+
+          else {
+            calc = calc.toString().replace(".", ",")
+          }
+
+          setResultadomedidas(calc + " " + medselecionada2)
+        }
+      }
+    }
+  }
 
   const [massa, setMassa] = useState("")
   const [resultadomassa, setResultadomassa] = useState("Massa 2")
 
   const [massaaberta1, setMassaaberta1] = useState(false);
-  const [massaselecionada1, setMassaselecionada1] = useState();
+  const [massaselecionada1, setMassaselecionada1] = useState("");
   const [massa1, setMassa1] = useState([
     {label: "Miligrama", value: "mg"},
     {label: "Grama", value: "g"},
     {label: "Quilograma", value: "kg"},
-    {label: "Tonelada", value: "t"},
-    {label: "Onça", value: "oz"},
-    {label: "Arroba", value: "@"},
+    {label: "Tonelada", value: "ton"},
+    {label: "Libra", value: "lb"},
   ]);
 
   const [massaaberta2, setMassaaberta2] = useState(false);
-  const [massaselecionada2, setMassaselecionada2] = useState();
+  const [massaselecionada2, setMassaselecionada2] = useState("");
   const [massa2, setMassa2] = useState([
     {label: "Miligrama", value: "mg"},
     {label: "Grama", value: "g"},
     {label: "Quilograma", value: "kg"},
-    {label: "Tonelada", value: "t"},
-    {label: "Onça", value: "oz"},
-    {label: "Arroba", value: "@"},
+    {label: "Tonelada", value: "ton"},
+    {label: "Libra", value: "lb"},
   ]);
+
+  const ConvMassa = () => {
+    if (massaselecionada1 == "" || massaselecionada2 == "") {
+      alert("Escolha as massas a serem convertidas!")
+    }
+
+    else {
+      if (massa == "") {
+        alert("Digite a massa a ser convertida!")
+      }
+
+      else {
+        if (massaselecionada1 == massaselecionada2) {
+          setResultadomassa(massa + " " + massaselecionada2)
+        }
+  
+        else {
+          var calc = (massa).replace(/,/g, ".")
+          calc = parseFloat(calc)
+
+          if (massaselecionada1 == "mg") {
+            if (massaselecionada2 == "g") {
+              calc = (calc / 1000)
+            }
+
+            else if (massaselecionada2 == "kg") {
+              calc = (calc / 1000000)
+            }
+            
+            else if (massaselecionada2 == "ton") {
+              calc = (calc / 1000000000)
+            }
+            
+            else if (massaselecionada2 == "lb") {
+              calc = (calc / 453600)
+            }
+          }
+
+          if (massaselecionada1 == "g") {
+            if (massaselecionada2 == "mg") {
+              calc = (calc * 1000)
+            }
+
+            else if (massaselecionada2 == "kg") {
+              calc = (calc / 1000)
+            }
+            
+            else if (massaselecionada2 == "ton") {
+              calc = (calc / 1000000)
+            }
+            
+            else if (massaselecionada2 == "lb") {
+              calc = (calc / 453.6)
+            }
+          }
+
+          if (massaselecionada1 == "kg") {
+            if (massaselecionada2 == "mg") {
+              calc = (calc * 1000000)
+            }
+
+            else if (massaselecionada2 == "g") {
+              calc = (calc * 1000)
+            }
+            
+            else if (massaselecionada2 == "ton") {
+              calc = (calc / 1000)
+            }
+            
+            else if (massaselecionada2 == "lb") {
+              calc = (calc * 2.205)
+            }
+          }
+
+          if (massaselecionada1 == "ton") {
+            if (massaselecionada2 == "mg") {
+              calc = (calc * 1000000000)
+            }
+
+            else if (massaselecionada2 == "g") {
+              calc = (calc * 1000000)
+            }
+            
+            else if (massaselecionada2 == "kg") {
+              calc = (calc * 1000)
+            }
+            
+            else if (massaselecionada2 == "lb") {
+              calc = (calc * 2205)
+            }
+          }
+
+          if (massaselecionada1 == "lb") {
+            if (massaselecionada2 == "mg") {
+              calc = (calc * 453600)
+            }
+
+            else if (massaselecionada2 == "g") {
+              calc = (calc * 453.6)
+            }
+            
+            else if (massaselecionada2 == "kg") {
+              calc = (calc / 2.205)
+            }
+            
+            else if (massaselecionada2 == "ton") {
+              calc = (calc / 2205)
+            }
+          }
+
+          if (calc.toString().length > 5) {
+            calc = (calc.toFixed(5)).toString().replace(".", ",")
+          }
+
+          else {
+            calc = calc.toString().replace(".", ",")
+          }
+
+          setResultadomassa(calc + " " + massaselecionada2)
+        }
+      }
+    }
+  }
 
   const [temperatura, setTemperatura] = useState("")
   const [resultadotemperatura, setResultadotemperatura] = useState("Temperatura 2")
@@ -88,18 +325,8 @@ const Conversor = ({ navigation }) => {
   ]);
 
   const ConvTemp = () => {
-    if(tempselecionada1 == "" || tempselecionada2 == "") {
-      alert("Escolha as temperaturas para conversão!")
-    }
-
-    else if(tempselecionada1 == tempselecionada2) {
-      if (temperatura == "") {
-        alert("Digite a temperatura a ser convertida!")
-      }
-
-      else {
-        setResultadotemperatura(temperatura + " °" + tempselecionada1)
-      }
+    if (tempselecionada1 == "" || tempselecionada2 == "") {
+      alert("Escolha as temperaturas a serem convertidas!")
     }
 
     else {
@@ -107,57 +334,54 @@ const Conversor = ({ navigation }) => {
         alert("Digite a temperatura a ser convertida!")
       }
 
-      if (tempselecionada1 == "C") {
-        if (tempselecionada2 == "F") {
-          var calc = (temperatura).replace(/,/g, ".")
-          calc = parseFloat(calc)
-          calc = ((calc * 1.8) + 32).toFixed(2)
-          calc = calc.toString().replace(".", ",")
-          setResultadotemperatura(calc + " °F")
+      else {
+        if (tempselecionada1 == tempselecionada2) {
+          setResultadotemperatura(temperatura + " " + tempselecionada2)
         }
-
+  
         else {
           var calc = (temperatura).replace(/,/g, ".")
           calc = parseFloat(calc)
-          calc = (calc + 273.15).toFixed(2)
-          calc = calc.toString().replace(".", ",")
-          setResultadotemperatura(calc + " °K")
-        }
-      }
 
-      else if (tempselecionada1 == "F") {
-        if (tempselecionada2 == "C") {
-          var calc = (temperatura).replace(/,/g, ".")
-          calc = parseFloat(calc)
-          calc = ((calc - 32) / 1.8).toFixed(2)
-          calc = calc.toString().replace(".", ",")
-          setResultadotemperatura(calc + " °C")
-        }
+          if (tempselecionada1 == "C") {
+            if (tempselecionada2 == "F") {
+              calc = (calc * 1.8) + 32
+            }
+  
+            else {
+              calc = calc + 273.15
+            }
+          }
+  
+          else if (tempselecionada1 == "F") {
+            if (tempselecionada2 == "C") {
+              calc = (calc - 32) / 1.8
+            }
+  
+            else {
+              calc = (calc - 32) / 1.8 + 273.15
+            }
+          }
+  
+          else if (tempselecionada1 == "K") {
+            if (tempselecionada2 == "C") {
+              calc = calc - 273.15
+            }
+  
+            else {
+              calc = ((calc - 273.15) * 1.8) + 32
+            }
+          }
 
-        else {
-          var calc = (temperatura).replace(/,/g, ".")
-          calc = parseFloat(calc)
-          calc = ((calc - 32) / 1.8 + 273.15).toFixed(2)
-          calc = calc.toString().replace(".", ",")
-          setResultadotemperatura(calc + " °K")
-        }
-      }
+          if (calc.toString().length > 3) {
+            calc = (calc.toFixed(2)).toString().replace(".", ",")
+          }
 
-      else if (tempselecionada1 == "K") {
-        if (tempselecionada2 == "C") {
-          var calc = (temperatura).replace(/,/g, ".")
-          calc = parseFloat(calc)
-          calc = (calc - 273.15).toFixed(2)
-          calc = calc.toString().replace(".", ",")
-          setResultadotemperatura(calc + " °K")
-        }
+          else {
+            calc = calc.toString().replace(".", ",")
+          }
 
-        else {
-          var calc = (temperatura).replace(/,/g, ".")
-          calc = parseFloat(calc)
-          calc = (((calc - 273.15) * 1.8) + 32).toFixed(2)
-          calc = calc.toString().replace(".", ",")
-          setResultadotemperatura(calc + " °K")
+          setResultadotemperatura(calc + " °" + tempselecionada2)
         }
       }
     }
@@ -171,10 +395,9 @@ const Conversor = ({ navigation }) => {
 
         <View style={styles.calculadora}>
           <View style={[styles.visor, styles.visor_medidas]}>
-
             <View style={styles.conv_grupo}>
               <Text style={styles.conv_titulo}>Medidas</Text>
-              <View style={{width: "45%"}}>
+              <View style={{width: "45%", zIndex: 3}}>
                 <DropDownPicker
                   open={medaberta1}
                   value={medselecionada1}
@@ -186,14 +409,14 @@ const Conversor = ({ navigation }) => {
                   placeholderStyle={{fontSize: 15}}
                   style={styles.conv_dropdown}
                   textStyle={{color: "#ffa500", fontSize: 15, fontWeight: "500"}}
-                  dropDownContainerStyle={{backgroundColor: "#222222", borderWidth: 0}}
+                  dropDownContainerStyle={{backgroundColor: "#222222", borderWidth: 0, zIndex: 1}}
                   listItemLabelStyle={{textAlign: "left"}}
                   showTickIcon={false}
                   arrowIconStyle={{tintColor: "#ffa500"}}
                 />
               </View>
 
-              <View style={{width: "45%"}}>
+              <View style={{width: "45%", zIndex: 3}}>
                 <DropDownPicker
                   open={medaberta2}
                   value={medselecionada2}
@@ -203,9 +426,9 @@ const Conversor = ({ navigation }) => {
                   setItems={setMed2}
                   placeholder="Medida 2"
                   placeholderStyle={{fontSize: 15}}
-                  style={styles.conv_dropdown}
+                  style={[styles.conv_dropdown]}
                   textStyle={{color: "#ffa500", fontSize: 15, fontWeight: "500"}}
-                  dropDownContainerStyle={{backgroundColor: "#222222", borderWidth: 0}}
+                  dropDownContainerStyle={{backgroundColor: "#222222", borderWidth: 0, zIndex: 1}}
                   listItemLabelStyle={{textAlign: "left"}}
                   showTickIcon={false}
                   arrowIconStyle={{tintColor: "#ffa500"}}
@@ -214,16 +437,16 @@ const Conversor = ({ navigation }) => {
 
               <TextInput
                 style={styles.conv_input}
-                value={temperatura}
-                onChangeText={(text) => { setTemperatura(text)}}
+                value={medidas}
+                onChangeText={(text) => { setMedidas(text)}}
                 keyboardType={"numeric"}
                 placeholder={"Medida 1"}
                 placeholderTextColor={"#ffa500"}
               />
 
-              <TouchableOpacity style={styles.conv_resultado} onPress={ConvTemp}><Text style={styles.conv_resultado_texto}>=</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.conv_resultado} onPress={ConvMedidas}><Text style={styles.conv_resultado_texto}>=</Text></TouchableOpacity>
 
-              <Text style={styles.conv_input}>{resultadomedidas}</Text>
+              <Text style={styles.conv_input} selectable={true}>{resultadomedidas}</Text>
             </View>
 
             <View style={styles.conv_grupo}>
@@ -268,16 +491,16 @@ const Conversor = ({ navigation }) => {
 
               <TextInput
                 style={styles.conv_input}
-                value={temperatura}
-                onChangeText={(text) => { setTemperatura(text)}}
+                value={massa}
+                onChangeText={(text) => { setMassa(text)}}
                 keyboardType={"numeric"}
                 placeholder={"Massa 1"}
                 placeholderTextColor={"#ffa500"}
               />
 
-              <TouchableOpacity style={styles.conv_resultado} onPress={ConvTemp}><Text style={styles.conv_resultado_texto}>=</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.conv_resultado} onPress={ConvMassa}><Text style={styles.conv_resultado_texto}>=</Text></TouchableOpacity>
 
-              <Text style={styles.conv_input}>{resultadomassa}</Text>
+              <Text style={styles.conv_input} selectable={true}>{resultadomassa}</Text>
             </View>
 
             <View style={styles.conv_grupo}>
@@ -331,7 +554,7 @@ const Conversor = ({ navigation }) => {
 
               <TouchableOpacity style={styles.conv_resultado} onPress={ConvTemp}><Text style={styles.conv_resultado_texto}>=</Text></TouchableOpacity>
 
-              <Text style={styles.conv_input}>{resultadotemperatura}</Text>
+              <Text style={styles.conv_input} selectable={true}>{resultadotemperatura}</Text>
             </View>
           </View>
         </View>
@@ -375,7 +598,6 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       width: "100%",
       flexWrap: "wrap",
-      zIndex: 5
     },
 
     conv_titulo: {
@@ -383,7 +605,7 @@ const styles = StyleSheet.create({
       color: "#ffa500",
       fontSize: 30,
       textAlign: "center",
-      marginBottom: 20
+      marginBottom: 20,
     },
 
     conv_dropdown: {
@@ -393,7 +615,7 @@ const styles = StyleSheet.create({
       borderWidth: 0,
       borderColor: "#383838",
       borderBottomWidth: 1,
-      width: '100%'
+      width: '100%',
     },
 
     conv_input: {
@@ -406,7 +628,8 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
       borderColor: "#383838",
       borderBottomWidth: 1,
-      marginBottom: 30
+      marginBottom: 30,
+      zIndex: 2
     },
 
     conv_resultado: {
